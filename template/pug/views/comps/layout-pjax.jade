@@ -1,0 +1,7 @@
+block title
+block css
+block pjax-content
+block scripts
+	if pjax
+		script(type='text/javascript').
+			setTimeout(function() { $('a.active[pjax]').trigger('click'); }, 200);

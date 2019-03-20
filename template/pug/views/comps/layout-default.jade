@@ -1,0 +1,31 @@
+doctype html
+html(lang="en")&attributes(!_fw.config.appcache || {'manifest': '/cache.manifest'})
+	meta(charset="utf-8")
+	meta(http-equiv="X-UA-Compatible", content="IE=edge")
+	meta(name="renderer", content="webkit")
+	meta(name="viewport", content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1, minimal-ui, shrink-to-fit=no")
+	block title
+		title #{_fw.config.title}
+	block css
+		link(rel="stylesheet", href="/${__plusname}/css/base.css")
+	body
+		.ui.top.fixed.menu
+			block head
+				.ui.container
+					a.item(href='/' class={ active : tabindex == 0 }) 首页
+
+		block afterHead
+
+		block content
+			#pjax-content
+				block pjax-content
+
+		block foot
+			.ui.container
+
+		
+		block afterFoot
+		
+		script(src='/${__plusname}/js/base.js')
+		block scripts
+			

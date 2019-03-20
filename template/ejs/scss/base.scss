@@ -1,0 +1,27 @@
+/*
+* @Author: binchem
+* @Date:   2016-03-20 23:51:46
+* @Last Modified by:   able
+* @Last Modified time: 2016-05-18 12:46:21
+*/
+
+@import "comps/_bootstrap";
+body {
+    padding-top: 52px;
+    padding-bottom: 50px;
+    background-color: #f5f8fa;
+    font-family: '微软雅黑';
+    -webkit-font-smoothing: antialiased;
+}
+
+.pinTop {
+    top: 0px;
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    text-align: center;
+    border-radius: 0 0 4px 4px;
+    margin: auto;
+    width: 340px;
+}

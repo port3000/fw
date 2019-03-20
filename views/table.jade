@@ -1,0 +1,134 @@
+//- data
+//- query
+//- total
+//- limit
+//- skip
+//- location
+//- view.select
+//- view.col_head
+//- view.col_width
+//- view.row_class
+//- view.col_format
+//- query._collapsing
+//- query._tbindex
+//- query._tbtitle
+//- query._conid
+
+if !isXhr
+	style.
+		table {
+			margin: 1em 0;
+			border: 1px solid rgba(34,36,38,.15);
+			box-shadow: none;
+			border-radius: .28571429rem;
+			text-align: left;
+			color: rgba(0,0,0,.87);
+			border-collapse: separate;
+			border-spacing: 0;
+			border-top: solid 1px #000;
+			border-right: solid 1px #000;
+		}
+		th, td {
+			border-bottom: solid 1px #000;
+			padding: 6px 16px;
+			border-left: solid 1px #000;
+		}
+		a.item, div.item {
+			padding: 4px 8px;
+			display: inline;
+		}
+		.active { background-color: #f0f0f0; }
+	script(src='/base/js/base.js')
+
+mixin table(list, tbid, tbindex)
+	div(id= !query._pjax?tbid:(query._conid == 'self'?tbid:'_pjax_tb_con'))
+		if query._tbtitle
+			.ui.blue.ribbon.label(style="left:-13px;top:15px;")!= _.isArray(query._tbtitle) ? query._tbtitle[tbindex] : query._tbtitle
+		- var cols = [];
+		each val,key in list&&list.length&&list[0]
+			- cols.push(key);
+		table.ui.table.selectable.content(class={ 'collapsing celled': query._collapsing }, style="margin-bottom:12px;")
+			thead: tr
+				if view && view.col_head
+					each h,i in view.col_head
+						if view.col_width && view.col_width[i]
+							th&attributes({'style': 'width:'+view.col_width[i]})!= view.col_head[i]
+						else
+							th!= view.col_head[i]
+				else 
+					each cl,i in cols
+						if view && view.col_width && view.col_width[i]
+							th&attributes({'style': 'width:'+view.col_width[i]})!= cl
+						else
+							th!= cl
+			tbody
+				if !list.length
+					tr
+						td(colspan=view&&view.col_head&&view.col_head.length || cols.length).negative No content provided
+				each r in list
+					tr(class=Util.tmpl(view && view.row_class).render(r))
+						if view && view.col_head
+							each h,i in view.col_head
+								td!=Util.tmpl(view.col_format[i]).render(r)
+						else
+							each cl in cols
+								td!=r[cl]
+
+			if total && limit
+				- if (location.indexOf('_limit=') == -1) location += '&_limit='+limit+'&_skip='+skip
+				- if (location.indexOf('_tbindex=') == -1) location += '&_tbindex='+tbindex
+				- if (query._conid == 'self') location = location.replace(/_conid=[^&]+/,'_conid='+tbid).replace(/_tbindex=\d+/,'_tbindex='+tbindex);
+				tfoot
+					tr
+						th(colspan=view&&view.col_head&&view.col_head.length || cols.length)
+							.ui.right.floated.pagination.menu
+
+								- var total_page = Math.ceil(total/limit);
+								- var cur_page = Math.floor(skip/limit)+1;
+								- var start = (cur_page-4)>0?(cur_page-4):1;
+								- var end = (cur_page+4)<=total_page?(cur_page+4):total_page;
+
+								if start == 1
+									.icon.item(class="disabled")
+										i.left.chevron.icon
+								else
+									a.icon.item(href!=location.replace(/_skip=\d+/g, function(capText) { return '_skip=0';}), push='false', pjax="##{tbid}")
+										i.left.chevron.icon						
+
+								if start > 1
+									.item.disabled ...
+
+								while start <= end
+									if start == cur_page
+										a.item(class="active")=start++
+									else
+										a.icon.item(href!=location.replace(/_skip=\d+/g, function(capText) { return '_skip=' + ((start - 1) * limit);}), push='false', pjax="##{tbid}")=start++
+
+								if end < total_page
+									.item.disabled ...
+								
+								if end == total_page
+									.icon.item(class="disabled")
+										i.right.chevron.icon
+								else
+									a.icon.item(href!=location.replace(/_skip=\d+/g, function(capText) { return '_skip=' + ((total_page - 1) * limit);}), push='false', pjax="##{tbid}")
+										i.right.chevron.icon
+
+- var tbid = query._pjax && query._pjax.substr(1) || null;
+- if (query._conid) tbid = query._conid;
+- if (query._conid == 'self') tbid = null;
+- if (location.indexOf('_pjax=') > -1) location = location.substring(location.indexOf('_pjax=')-1, -1);
+
+if files && !query._tbindex
+	each f in files
+		a.ui.label(href=f, target="_blank")
+			i.save.icon
+			| #{f.substr(9)}
+
+
+if _.isArray(data[0])
+	each list,tbindex in data
+		- if (query.hasOwnProperty('_tbindex') && query._tbindex != tbindex) continue;
+		+table(list, tbid || 'tb-'+((Math.random()+'').substr(2)), tbindex)
+else 
+	+table(data, tbid || 'tb-'+((Math.random()+'').substr(2)), 0)

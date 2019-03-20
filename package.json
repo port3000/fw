@@ -1,0 +1,86 @@
+{
+  "_args": [
+    [
+      "@fw/fw",
+      ""
+    ],
+    [
+      "@fw/fw",
+      ""
+    ]
+  ],
+  "_from": "@fw/fw@latest",
+  "_id": "@fw/fw@1.0.5",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/@fw/fw",
+  "_nodeVersion": "5.9.0",
+  "_npmUser": {},
+  "_npmVersion": "4.6.1",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "@fw/fw",
+    "raw": "@fw/fw",
+    "rawSpec": "",
+    "scope": "@fw",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_shrinkwrap": null,
+  "_spec": "@fw/fw",
+  "_where": "",
+  "author": {
+    "email": "binchem@qq.com",
+    "name": "able"
+  },
+  "bin": {
+    "fw": "./bin/fw.js"
+  },
+  "dependencies": {
+    "accepts": "^1.3.2",
+    "body-parser": "^1.15.0",
+    "colors": "^1.1.2",
+    "connect-redis": "^3.0.2",
+    "content-disposition": "^0.5.1",
+    "content-type": "^1.0.1",
+    "cookie": "^0.2.3",
+    "cookie-parser": "^1.4.1",
+    "cookie-signature": "^1.0.6",
+    "cors": "^2.7.1",
+    "csrf": "^3.0.1",
+    "ejs-locals": "^1.0.2",
+    "express-session": "^1.13.0",
+    "jade": "^1.11.0",
+    "lodash": "^4.11.0",
+    "log4js": "^1.1.1",
+    "moment": "^2.14.1",
+    "morgan": "^1.7.0",
+    "mysql": "^2.10.2",
+    "proxy-addr": "^1.0.10",
+    "qs": "^6.1.0",
+    "redis": "^2.6.0-1",
+    "request": "^2.72.0",
+    "router": "^1.1.4",
+    "send": "^0.13.2",
+    "serve-static": "^1.10.2",
+    "tar": "^2.2.1",
+    "type-is": "^1.6.12",
+    "vary": "^1.1.0"
+  },
+  "description": "The web framework for Node.js",
+  "devDependencies": {},
+  "dist": {
+    "shasum": "b504525a7202f88cd054271ea1d59a591d0315d6",
+    "tarball": "http://pkg.lcbox.cn/@fw%2ffw/-/fw-1.0.5.tgz"
+  },
+  "main": "index.js",
+  "name": "@fw/fw",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "readmeFilename": "readme.md",
+  "scripts": {},
+  "version": "1.0.5"
+}
